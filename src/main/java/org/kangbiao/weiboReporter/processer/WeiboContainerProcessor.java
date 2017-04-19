@@ -33,6 +33,7 @@ public class WeiboContainerProcessor implements WeiboProcessor{
                 Map<String, Object> pageExtrasMap=new HashMap<String, Object>();
                 pageExtrasMap.put("pageType",PageType.WEIBO_FEED);
                 pageExtrasMap.put("calPage",true);
+                pageExtrasMap.put("uid",uid);
                 pageExtrasMap.put("containerid",tabMap.get("containerid"));
                 request.setExtras(pageExtrasMap);
                 page.addTargetRequest(request);

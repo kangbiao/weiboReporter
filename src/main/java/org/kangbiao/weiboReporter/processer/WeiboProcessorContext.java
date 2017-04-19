@@ -12,7 +12,11 @@ import java.util.Map;
  */
 public class WeiboProcessorContext {
 
-    private Map<PageType,WeiboProcessor> weiboProcessorMap=new HashMap<PageType, WeiboProcessor>();
+    private Map<PageType,WeiboProcessor> weiboProcessorMap;
+
+    public WeiboProcessorContext(){
+        this.weiboProcessorMap=new HashMap<PageType, WeiboProcessor>();
+    }
 
     public void process(PageType pageType,Page page){
         WeiboProcessor weiboProcessor=this.weiboProcessorMap.get(pageType);

@@ -3,12 +3,14 @@ package org.kangbiao.weiboReporter;
 import org.kangbiao.weiboReporter.entity.PageType;
 import org.kangbiao.weiboReporter.entity.WeiboConfig;
 import org.kangbiao.weiboReporter.processer.WeiboProcessorContext;
+import org.kangbiao.weiboReporter.schduler.FileScheduler;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.pipeline.ConsolePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
+import us.codecraft.webmagic.scheduler.FileCacheQueueScheduler;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,7 +26,7 @@ public class WeiboCrawler implements PageProcessor {
     private WeiboProcessorContext weiboProcessorContext;
 
     public void process(Page page) {
-        PageType pageType= (PageType) page.getRequest().getExtras().get("pageType");
+        PageType pageType= PageType.fromObject(page.getRequest().getExtras().get("pageType"));
         weiboProcessorContext.process(pageType,page);
     }
 
@@ -48,6 +50,7 @@ public class WeiboCrawler implements PageProcessor {
                     .addRequest(request)
                     .addPipeline(new ConsolePipeline())
                     .thread(weiboConfig.getThreadNum())
+                    .setScheduler(new FileScheduler("C:\\Users\\I337077\\Desktop\\url.txt"))
                     .run();
         } catch (IOException e) {
             e.printStackTrace();

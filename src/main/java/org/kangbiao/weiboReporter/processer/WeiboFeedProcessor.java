@@ -30,11 +30,17 @@ public class WeiboFeedProcessor implements WeiboProcessor{
                 page.addTargetRequest(request);
             }
         }
-        else {
-            List<String> ids=page.getJson().jsonPath(".cards[*].mblog.id").all();
-            for (String id:ids){
-                System.out.println(id);
-            }
+        List<String> ids=page.getJson().jsonPath(".cards[*].mblog.id").all();
+        for (String id:ids){
+            String url = "http://m.weibo.cn/api/comments/show?id=%s&page=%s";
+            Map<String, Object> pageExtrasMap = new HashMap<String, Object>();
+            pageExtrasMap.put("pageType", PageType.WEIBO_COMMENT);
+            pageExtrasMap.put("calPage",true);
+            pageExtrasMap.put("commentId",id);
+            Request request = new Request(String.format(url, id,1));
+            request.setExtras(pageExtrasMap);
+            page.addTargetRequest(request);
+            System.out.println("feedId:"+id);
         }
     }
 }
