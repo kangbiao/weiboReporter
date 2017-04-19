@@ -1,4 +1,4 @@
-package processer;
+package org.kangbiao.weiboReporter.processer;
 
 import us.codecraft.webmagic.Page;
 

@@ -1,4 +1,4 @@
-package util;
+package org.kangbiao.weiboReporter.util;
 
 import com.google.gson.Gson;
 

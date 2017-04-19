@@ -1,6 +1,6 @@
-package processer;
+package org.kangbiao.weiboReporter.processer;
 
-import entity.PageType;
+import org.kangbiao.weiboReporter.entity.PageType;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 

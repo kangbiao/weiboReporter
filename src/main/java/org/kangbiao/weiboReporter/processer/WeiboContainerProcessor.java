@@ -1,10 +1,10 @@
-package processer;
+package org.kangbiao.weiboReporter.processer;
 
 import com.google.gson.reflect.TypeToken;
-import entity.PageType;
+import org.kangbiao.weiboReporter.entity.PageType;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
-import util.JsonUtil;
+import org.kangbiao.weiboReporter.util.JsonUtil;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;

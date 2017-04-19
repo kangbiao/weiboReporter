@@ -1,6 +1,8 @@
-import entity.PageType;
-import entity.WeiboConfig;
-import processer.WeiboProcessorContext;
+package org.kangbiao.weiboReporter;
+
+import org.kangbiao.weiboReporter.entity.PageType;
+import org.kangbiao.weiboReporter.entity.WeiboConfig;
+import org.kangbiao.weiboReporter.processer.WeiboProcessorContext;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;

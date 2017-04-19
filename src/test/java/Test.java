@@ -1,5 +1,5 @@
 import com.google.gson.reflect.TypeToken;
-import util.JsonUtil;
+import org.kangbiao.weiboReporter.util.JsonUtil;
 
 import java.util.Map;
 

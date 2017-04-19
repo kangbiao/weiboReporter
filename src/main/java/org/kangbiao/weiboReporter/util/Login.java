@@ -1,4 +1,4 @@
-package util;
+package org.kangbiao.weiboReporter.util;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package entity;
+package org.kangbiao.weiboReporter.entity;
 
 /**
  * Created by bradykang on 4/18/2017.
