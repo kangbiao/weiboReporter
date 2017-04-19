@@ -50,7 +50,7 @@ public class WeiboCrawler implements PageProcessor {
                     .addRequest(request)
                     .addPipeline(new ConsolePipeline())
                     .thread(weiboConfig.getThreadNum())
-                    .setScheduler(new FileScheduler("C:\\Users\\I337077\\Desktop\\url.txt"))
+                    .setScheduler(new FileScheduler(weiboConfig.getUrlCacheDir()))
                     .run();
         } catch (IOException e) {
             e.printStackTrace();

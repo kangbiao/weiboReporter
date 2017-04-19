@@ -112,8 +112,8 @@ public class FileScheduler extends DuplicateRemovedScheduler implements Monitora
 
     private void readFile() {
         try {
-            this.queue = new LinkedBlockingQueue();
-            this.urls = new LinkedHashSet();
+            this.queue = new LinkedBlockingQueue<Request>();
+            this.urls = new LinkedHashSet<String>();
             this.readCursorFile();
             this.readUrlFile();
         } catch (FileNotFoundException var2) {
@@ -193,7 +193,7 @@ public class FileScheduler extends DuplicateRemovedScheduler implements Monitora
         }
 
         this.fileCursorWriter.println(this.cursor.incrementAndGet());
-        return (Request) this.queue.poll();
+        return this.queue.poll();
     }
 
     public int getLeftRequestsCount(Task task) {

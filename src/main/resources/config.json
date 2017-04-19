@@ -9,5 +9,6 @@
     "acceptStatCode":[200,414]
   },
   "uid":2241191261,
-  "threadNum":3
+  "threadNum":3,
+  "urlCacheDir":"C:\\Users\\I337077\\Desktop\\cache"
 }

@@ -16,6 +16,7 @@ public class WeiboConfig {
     private Site site;
     private String uid;
     private int threadNum;
+    private String urlCacheDir;
 
     public WeiboConfig() throws IOException {
         String  path=WeiboConfig.class.getResource("/").getPath()+"config.json";
@@ -26,6 +27,7 @@ public class WeiboConfig {
             this.setSite(JSON.parseObject(jsonObject.getString("site"),Site.class));
             this.setUid(jsonObject.getString("uid"));
             this.setThreadNum(jsonObject.getInteger("threadNum"));
+            this.setUrlCacheDir(jsonObject.getString("urlCacheDir"));
         } catch (IOException e) {
             throw new IOException("配置文件读取失败");
         }
@@ -53,5 +55,13 @@ public class WeiboConfig {
 
     public void setThreadNum(int threadNum) {
         this.threadNum = threadNum;
+    }
+
+    public String getUrlCacheDir() {
+        return urlCacheDir;
+    }
+
+    public void setUrlCacheDir(String urlCacheDir) {
+        this.urlCacheDir = urlCacheDir;
     }
 }
