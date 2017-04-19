@@ -1,0 +1,13 @@
+{
+  "site":{
+    "domain":"m.weibo.com",
+    "retryTimes":3,
+    "sleepTime":5000,
+    "timeOut":5000,
+    "userAgent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36",
+    "charset":"UTF-8",
+    "acceptStatCode":[200,414]
+  },
+  "uid":2241191261,
+  "threadNum":3
+}
