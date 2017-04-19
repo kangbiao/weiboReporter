@@ -22,7 +22,7 @@ public class WeiboFeedProcessor implements WeiboProcessor{
             String url = "http://m.weibo.cn/api/container/getIndex?type=uid&value=%s&containerid=%s&page=%s";
             Integer total = Integer.valueOf(page.getJson().jsonPath("$.cardlistInfo.total").get());
             Map<String, Object> pageExtrasMap = new HashMap<String, Object>();
-            pageExtrasMap.put("pageType", PageType.WEIBO_LIST);
+            pageExtrasMap.put("pageType", PageType.WEIBO_FEED);
             pageExtrasMap.put("calPage",false);
             for (int i = 2; i < total / 10 + 1; i++) {
                 Request request = new Request(String.format(url, uid, containerId, i));

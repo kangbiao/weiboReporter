@@ -5,5 +5,17 @@ package entity;
  * 微博页面类型
  */
 public enum  PageType {
-    CONTAINER_ID,WEIBO_LIST_INIT,WEIBO_LIST,WEIBO_COMMENT_INIT,WEIBO_COMMENT,USER_PROFILE;
+    CONTAINER_ID("微博容器ID"),
+    WEIBO_FEED("微博动态"),
+    WEIBO_COMMENT("微博评论"),
+    USER_PROFILE("用户信息");
+
+    private String comment;
+
+    PageType(String comment) {
+        this.comment=comment;
+    }
+    public String getComment(){
+        return this.comment;
+    }
 }

@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * Created by bradykang on 4/19/2017.
- * 微博页面容易container处理器
+ * 微博页面容器container处理器
  */
 public class WeiboContainerProcessor implements WeiboProcessor{
 
@@ -31,7 +31,7 @@ public class WeiboContainerProcessor implements WeiboProcessor{
                 String url = "http://m.weibo.cn/api/container/getIndex?type=uid&value=%s&containerid=%s";
                 Request request=new Request(String.format(url,uid,tabMap.get("containerid")));
                 Map<String, Object> pageExtrasMap=new HashMap<String, Object>();
-                pageExtrasMap.put("pageType",PageType.WEIBO_LIST);
+                pageExtrasMap.put("pageType",PageType.WEIBO_FEED);
                 pageExtrasMap.put("calPage",true);
                 pageExtrasMap.put("containerid",tabMap.get("containerid"));
                 request.setExtras(pageExtrasMap);

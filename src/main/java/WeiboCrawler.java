@@ -14,16 +14,16 @@ import java.util.Map;
 
 /**
  * Created by bradykang on 3/29/2017.
- *
+ * 微博爬虫启动入口
  */
 public class WeiboCrawler implements PageProcessor {
 
     private Site site;
+    private WeiboProcessorContext weiboProcessorContext;
 
     public void process(Page page) {
         PageType pageType= (PageType) page.getRequest().getExtras().get("pageType");
-        WeiboProcessorContext weiboProcessorContext=new WeiboProcessorContext(pageType);
-        weiboProcessorContext.process(page);
+        weiboProcessorContext.process(pageType,page);
     }
 
     public Site getSite() {
@@ -35,6 +35,7 @@ public class WeiboCrawler implements PageProcessor {
             WeiboCrawler weiboCrawler=new WeiboCrawler();
             WeiboConfig weiboConfig=new WeiboConfig();
             weiboCrawler.site=weiboConfig.getSite();
+            weiboCrawler.weiboProcessorContext=new WeiboProcessorContext();
             String url="http://m.weibo.cn/api/container/getIndex?type=uid&value=%s";
             Request request=new Request(String.format(url,weiboConfig.getUid()));
             Map<String, Object> pageExtrasMap=new HashMap<String, Object>();
