@@ -103,8 +103,8 @@ public class FileScheduler extends DuplicateRemovedScheduler implements Monitora
 
     private void initWriter() {
         try {
-            this.fileUrlWriter = new PrintWriter(new FileWriter(this.getFileName(this.fileUrlAllName), true));
-            this.fileCursorWriter = new PrintWriter(new FileWriter(this.getFileName(this.fileCursor), false));
+            this.fileUrlWriter = new PrintWriter(new FileWriter(this.getFileName(this.fileUrlAllName), true),true);
+            this.fileCursorWriter = new PrintWriter(new FileWriter(this.getFileName(this.fileCursor), false),true);
         } catch (IOException var2) {
             throw new RuntimeException("init cache scheduler error", var2);
         }
@@ -129,18 +129,18 @@ public class FileScheduler extends DuplicateRemovedScheduler implements Monitora
 
         try {
             fileUrlReader = new BufferedReader(new FileReader(this.getFileName(this.fileUrlAllName)));
-            int lineReaded = 0;
+            int lineReaded = 1;
 
             String line;
             while ((line = fileUrlReader.readLine()) != null) {
-                this.urls.add(line.trim());
-                ++lineReaded;
-                if (lineReaded > this.cursor.get()) {
-                    String [] lineArr=line.split("  ");
+                String [] lineArr=line.split("  ");
+                this.urls.add(lineArr[0].trim());
+                if (lineReaded >this.cursor.get()) {
                     Request request=new Request(lineArr[0]);
                     request.setExtras(JSON.parseObject(lineArr[1]));
                     this.queue.add(request);
                 }
+                lineReaded++;
             }
         } finally {
             if (fileUrlReader != null) {

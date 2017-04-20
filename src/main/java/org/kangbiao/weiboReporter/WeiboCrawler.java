@@ -8,11 +8,10 @@ import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.monitor.SpiderMonitor;
 import us.codecraft.webmagic.pipeline.ConsolePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.scheduler.FileCacheQueueScheduler;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,13 +45,14 @@ public class WeiboCrawler implements PageProcessor {
             pageExtrasMap.put("pageType",PageType.CONTAINER_ID);
             pageExtrasMap.put("uid",weiboConfig.getUid());
             request.setExtras(pageExtrasMap);
-            Spider.create(weiboCrawler)
+            Spider weiboSpider=Spider.create(weiboCrawler)
                     .addRequest(request)
                     .addPipeline(new ConsolePipeline())
                     .thread(weiboConfig.getThreadNum())
-                    .setScheduler(new FileScheduler(weiboConfig.getUrlCacheDir()))
-                    .run();
-        } catch (IOException e) {
+                    .setScheduler(new FileScheduler(weiboConfig.getUrlCacheDir()));
+            SpiderMonitor.instance().register(weiboSpider);
+            weiboSpider.start();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
