@@ -1,10 +1,10 @@
 package org.kangbiao.weiboReporter;
 
-import org.kangbiao.weiboReporter.downloader.HttpDownloader;
+import org.kangbiao.weiboReporter.downloader.HttpClientExDownloader;
 import org.kangbiao.weiboReporter.entity.PageType;
 import org.kangbiao.weiboReporter.entity.WeiboConfig;
 import org.kangbiao.weiboReporter.processer.WeiboProcessorContext;
-import org.kangbiao.weiboReporter.schduler.FileScheduler;
+import org.kangbiao.weiboReporter.schduler.FileCacheExScheduler;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
@@ -50,8 +50,8 @@ public class WeiboCrawler implements PageProcessor {
                     .addRequest(request)
                     .addPipeline(new ConsolePipeline())
                     .thread(weiboConfig.getThreadNum())
-                    .setScheduler(new FileScheduler(weiboConfig.getUrlCacheDir()))
-                    .setDownloader(new HttpDownloader());
+                    .setScheduler(new FileCacheExScheduler(weiboConfig.getUrlCacheDir()))
+                    .setDownloader(new HttpClientExDownloader());
             SpiderMonitor.instance().register(weiboSpider);
             weiboSpider.start();
         } catch (Exception e) {

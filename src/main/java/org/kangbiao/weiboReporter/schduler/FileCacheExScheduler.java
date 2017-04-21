@@ -30,8 +30,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by bradykang on 4/19/2017.
  * url队列管理器
+ * 扩展{@link us.codecraft.webmagic.scheduler.FileCacheQueueScheduler},增加将{@link Request}序列化到文件缓存中
  */
-public class FileScheduler extends DuplicateRemovedScheduler implements MonitorableScheduler, Closeable {
+public class FileCacheExScheduler extends DuplicateRemovedScheduler implements MonitorableScheduler, Closeable {
     private String filePath = System.getProperty("java.io.tmpdir");
     private String fileUrlAllName = ".urls.txt";
     private Task task;
@@ -44,7 +45,7 @@ public class FileScheduler extends DuplicateRemovedScheduler implements Monitora
     private Set<String> urls;
     private ScheduledExecutorService flushThreadPool;
 
-    public FileScheduler(String filePath) {
+    public FileCacheExScheduler(String filePath) {
         if (!filePath.endsWith("/") && !filePath.endsWith("\\")) {
             filePath = filePath + "/";
         }
@@ -62,9 +63,10 @@ public class FileScheduler extends DuplicateRemovedScheduler implements Monitora
         this.task = task;
         File file = new File(this.filePath);
         if (!file.exists()) {
-            file.mkdirs();
+            if (!file.mkdirs()){
+                throw new RuntimeException("cache file create fail!");
+            }
         }
-
         this.readFile();
         this.initWriter();
         this.initFlushThread();
@@ -75,19 +77,19 @@ public class FileScheduler extends DuplicateRemovedScheduler implements Monitora
     private void initDuplicateRemover() {
         this.setDuplicateRemover(new DuplicateRemover() {
             public boolean isDuplicate(Request request, Task task) {
-                if (!FileScheduler.this.inited.get()) {
-                    FileScheduler.this.init(task);
+                if (!FileCacheExScheduler.this.inited.get()) {
+                    FileCacheExScheduler.this.init(task);
                 }
 
-                return !FileScheduler.this.urls.add(request.getUrl());
+                return !FileCacheExScheduler.this.urls.add(request.getUrl());
             }
 
             public void resetDuplicateCheck(Task task) {
-                FileScheduler.this.urls.clear();
+                FileCacheExScheduler.this.urls.clear();
             }
 
             public int getTotalRequestsCount(Task task) {
-                return FileScheduler.this.urls.size();
+                return FileCacheExScheduler.this.urls.size();
             }
         });
     }
@@ -96,7 +98,7 @@ public class FileScheduler extends DuplicateRemovedScheduler implements Monitora
         this.flushThreadPool = Executors.newScheduledThreadPool(1);
         this.flushThreadPool.scheduleAtFixedRate(new Runnable() {
             public void run() {
-                FileScheduler.this.flush();
+                FileCacheExScheduler.this.flush();
             }
         }, 10L, 10L, TimeUnit.SECONDS);
     }
@@ -133,11 +135,9 @@ public class FileScheduler extends DuplicateRemovedScheduler implements Monitora
 
             String line;
             while ((line = fileUrlReader.readLine()) != null) {
-                String [] lineArr=line.split("  ");
-                this.urls.add(lineArr[0].trim());
+                Request request=JSON.parseObject(line,Request.class);
+                this.urls.add(request.getUrl().trim());
                 if (lineReaded >this.cursor.get()) {
-                    Request request=new Request(lineArr[0]);
-                    request.setExtras(JSON.parseObject(lineArr[1]));
                     this.queue.add(request);
                 }
                 lineReaded++;
@@ -184,7 +184,7 @@ public class FileScheduler extends DuplicateRemovedScheduler implements Monitora
         }
 
         this.queue.add(request);
-        this.fileUrlWriter.println(request.getUrl()+"  "+ JSON.toJSON(request.getExtras()));
+        this.fileUrlWriter.println(JSON.toJSON(request));
     }
 
     public synchronized Request poll(Task task) {

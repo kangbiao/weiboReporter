@@ -5,7 +5,6 @@ import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.cookie.CookieSpec;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.downloader.HttpClientDownloader;
@@ -15,9 +14,10 @@ import java.util.Map;
 
 /**
  * Created by bradykang on 4/21/2017.
- * 扩展downloader，增加支持对每个请求设置请求头，Request中设置的请求头优先级大于Site中设置的请求头
+ * 扩展{@link HttpClientDownloader}，增加支持对每个请求设置请求头，<br/>
+ * {@link Request}中设置的请求头优先级大于{@link Site}中设置的请求头
  */
-public class HttpDownloader extends HttpClientDownloader {
+public class HttpClientExDownloader extends HttpClientDownloader {
 
     protected HttpUriRequest getHttpUriRequest(Request request, Site site, Map<String, String> headers,HttpHost proxy) {
         RequestBuilder requestBuilder = selectRequestMethod(request).setUri(request.getUrl());
