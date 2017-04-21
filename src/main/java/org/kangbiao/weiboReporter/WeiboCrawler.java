@@ -1,5 +1,6 @@
 package org.kangbiao.weiboReporter;
 
+import org.kangbiao.weiboReporter.downloader.HttpDownloader;
 import org.kangbiao.weiboReporter.entity.PageType;
 import org.kangbiao.weiboReporter.entity.WeiboConfig;
 import org.kangbiao.weiboReporter.processer.WeiboProcessorContext;
@@ -49,7 +50,8 @@ public class WeiboCrawler implements PageProcessor {
                     .addRequest(request)
                     .addPipeline(new ConsolePipeline())
                     .thread(weiboConfig.getThreadNum())
-                    .setScheduler(new FileScheduler(weiboConfig.getUrlCacheDir()));
+                    .setScheduler(new FileScheduler(weiboConfig.getUrlCacheDir()))
+                    .setDownloader(new HttpDownloader());
             SpiderMonitor.instance().register(weiboSpider);
             weiboSpider.start();
         } catch (Exception e) {

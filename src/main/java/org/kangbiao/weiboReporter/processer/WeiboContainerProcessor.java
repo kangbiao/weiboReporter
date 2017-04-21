@@ -5,6 +5,7 @@ import org.kangbiao.weiboReporter.entity.PageType;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import org.kangbiao.weiboReporter.util.JsonUtil;
+import us.codecraft.webmagic.downloader.HttpClientDownloader;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
