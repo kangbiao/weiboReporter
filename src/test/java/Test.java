@@ -10,7 +10,6 @@ import java.util.Map;
 public class Test {
 
     public static void main(String[] args){
-        Map<String,String> map= JsonUtil.fromJson("{'data':1,'id':2}", new TypeToken<Map<String ,String >>(){}.getType());
-        System.out.print("ss");
+        System.out.print(56155/10+1);
     }
 }
