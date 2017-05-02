@@ -4,11 +4,15 @@
     "retryTimes":3,
     "sleepTime":5000,
     "timeOut":5000,
-    "userAgent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36",
+    "headers":{
+      "Host":"m.weibo.cn",
+      "Upgrade-Insecure-Requests":1
+    },
     "charset":"UTF-8",
-    "acceptStatCode":[200,414]
+    "acceptStatCode":[200,403]
   },
   "uid":2241191261,
-  "threadNum":1,
-  "urlCacheDir":"C:\\Users\\I337077\\Desktop\\cache"
+  "threadNum":10,
+  "urlCacheDir":"C:\\Users\\I337077\\Desktop\\cache",
+  "dataDir":"C:\\Users\\I337077\\Desktop\\data"
 }

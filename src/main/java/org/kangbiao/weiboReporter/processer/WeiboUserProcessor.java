@@ -1,5 +1,6 @@
 package org.kangbiao.weiboReporter.processer;
 
+import org.kangbiao.weiboReporter.entity.PageType;
 import us.codecraft.webmagic.Page;
 
 
@@ -9,7 +10,8 @@ import us.codecraft.webmagic.Page;
  */
 public class WeiboUserProcessor implements WeiboProcessor{
     public void process(Page page) {
-        String name=page.getJson().jsonPath("$.cards[\"0\"].card_group[\"0\"].item_content").get();
-        System.out.println("name:"+name);
+        page.putField("url",page.getRequest().getUrl());
+        page.putField("response",page.getRawText());
+        page.putField("type", PageType.USER_PROFILE);
     }
 }

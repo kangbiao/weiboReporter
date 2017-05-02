@@ -14,6 +14,9 @@ import java.util.Map;
  */
 public class WeiboCommentProcessor implements WeiboProcessor{
     public void process(Page page) {
+        if (Integer.valueOf(page.getJson().jsonPath("$.ok").get())==0){
+            return;
+        }
         Map extras=page.getRequest().getExtras();
         String commentId= String.valueOf(extras.get("commentId"));
         boolean calPage= Boolean.parseBoolean(String.valueOf(extras.get("calPage")));
@@ -29,18 +32,21 @@ public class WeiboCommentProcessor implements WeiboProcessor{
                 page.addTargetRequest(request);
             }
         }
-        List<String> ids=page.getJson().jsonPath(".data[*].id").all();
-        for (String id:ids){
-            System.out.println("commentId:"+id);
+        try {
+            List<String> uids = page.getJson().jsonPath(".data[*].user.id").all();
+            for (String uid : uids) {
+                String url = "http://m.weibo.cn/api/container/getIndex?containerid=230283%s_-_INFO";
+                Map<String, Object> pageExtrasMap = new HashMap<String, Object>();
+                pageExtrasMap.put("pageType", PageType.USER_PROFILE);
+                Request request = new Request(String.format(url, uid));
+                request.setExtras(pageExtrasMap);
+                page.addTargetRequest(request);
+            }
+        }catch (Exception e){
+            System.out.println(page.getJson());
         }
-        List<String> uids=page.getJson().jsonPath(".data[*].user.id").all();
-        for (String uid:uids){
-            String url = "http://m.weibo.cn/p/index?containerid=230283%s_-_INFO";
-            Map<String, Object> pageExtrasMap = new HashMap<String, Object>();
-            pageExtrasMap.put("pageType", PageType.USER_PROFILE);
-            Request request = new Request(String.format(url,uid));
-            request.setExtras(pageExtrasMap);
-            page.addTargetRequest(request);
-        }
+        page.putField("url",page.getRequest().getUrl());
+        page.putField("response",page.getRawText());
+        page.putField("type",PageType.WEIBO_COMMENT);
     }
 }

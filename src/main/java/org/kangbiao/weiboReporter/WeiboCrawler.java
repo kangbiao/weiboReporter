@@ -11,6 +11,7 @@ import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.monitor.SpiderMonitor;
 import us.codecraft.webmagic.pipeline.ConsolePipeline;
+import us.codecraft.webmagic.pipeline.JsonFilePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 import java.util.HashMap;
@@ -24,8 +25,16 @@ public class WeiboCrawler implements PageProcessor {
 
     private Site site;
     private WeiboProcessorContext weiboProcessorContext;
+    private static Spider weiboSpider;
 
     public void process(Page page) {
+        if (page.getStatusCode()!=200) {
+            System.out.println("-----------");
+            System.out.println("-----------");
+            System.out.println("-----------");
+            System.out.println("-----------");
+            System.out.println("status code:"+page.getStatusCode());
+        }
         PageType pageType= PageType.fromObject(page.getRequest().getExtras().get("pageType"));
         weiboProcessorContext.process(pageType,page);
     }
@@ -42,13 +51,14 @@ public class WeiboCrawler implements PageProcessor {
             weiboCrawler.weiboProcessorContext=new WeiboProcessorContext();
             String url="http://m.weibo.cn/api/container/getIndex?type=uid&value=%s";
             Request request=new Request(String.format(url,weiboConfig.getUid()));
+
             Map<String, Object> pageExtrasMap=new HashMap<String, Object>();
             pageExtrasMap.put("pageType",PageType.CONTAINER_ID);
             pageExtrasMap.put("uid",weiboConfig.getUid());
             request.setExtras(pageExtrasMap);
-            Spider weiboSpider=Spider.create(weiboCrawler)
+            weiboSpider=Spider.create(weiboCrawler)
                     .addRequest(request)
-                    .addPipeline(new ConsolePipeline())
+                    .addPipeline(new JsonFilePipeline(weiboConfig.getDataDir()))
                     .thread(weiboConfig.getThreadNum())
                     .setScheduler(new FileCacheExScheduler(weiboConfig.getUrlCacheDir()))
                     .setDownloader(new HttpClientExDownloader());
