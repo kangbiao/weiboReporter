@@ -1,5 +1,6 @@
 package org.kangbiao.weiboReporter.processer;
 
+import com.alibaba.fastjson.JSON;
 import org.kangbiao.weiboReporter.entity.PageType;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class WeiboCommentProcessor implements WeiboProcessor{
     public void process(Page page) {
         if (Integer.valueOf(page.getJson().jsonPath("$.ok").get())==0){
+            System.out.println("No Comment:"+ page);
             return;
         }
         Map extras=page.getRequest().getExtras();

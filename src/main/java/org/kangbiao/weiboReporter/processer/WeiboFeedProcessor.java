@@ -24,7 +24,7 @@ public class WeiboFeedProcessor implements WeiboProcessor{
             Map<String, Object> pageExtrasMap = new HashMap<String, Object>();
             pageExtrasMap.put("pageType", PageType.WEIBO_FEED);
             pageExtrasMap.put("calPage",false);
-            for (int i = total / 10 + 1-3000,j=0; j<=1000;j++, i--) {
+            for (int i = total / 10 + 1-4000,j=0; j<=1000;j++, i--) {
 //                total / 10 + 1
                 Request request = new Request(String.format(url, uid, containerId, i));
                 request.setExtras(pageExtrasMap);
@@ -41,7 +41,6 @@ public class WeiboFeedProcessor implements WeiboProcessor{
             Request request = new Request(String.format(url, id,1));
             request.setExtras(pageExtrasMap);
             page.addTargetRequest(request);
-            System.out.println("feedId:"+id);
         }
         page.putField("url",page.getRequest().getUrl());
         page.putField("response",page.getRawText());

@@ -3,6 +3,7 @@ package org.kangbiao.weiboReporter;
 import org.kangbiao.weiboReporter.downloader.HttpClientExDownloader;
 import org.kangbiao.weiboReporter.entity.PageType;
 import org.kangbiao.weiboReporter.entity.WeiboConfig;
+import org.kangbiao.weiboReporter.pipline.JsonFileExPipeline;
 import org.kangbiao.weiboReporter.processer.WeiboProcessorContext;
 import org.kangbiao.weiboReporter.schduler.FileCacheExScheduler;
 import us.codecraft.webmagic.Page;
@@ -10,8 +11,6 @@ import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.monitor.SpiderMonitor;
-import us.codecraft.webmagic.pipeline.ConsolePipeline;
-import us.codecraft.webmagic.pipeline.JsonFilePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 import java.util.HashMap;
@@ -58,7 +57,7 @@ public class WeiboCrawler implements PageProcessor {
             request.setExtras(pageExtrasMap);
             weiboSpider=Spider.create(weiboCrawler)
                     .addRequest(request)
-                    .addPipeline(new JsonFilePipeline(weiboConfig.getDataDir()))
+                    .addPipeline(new JsonFileExPipeline(weiboConfig.getDataDir()))
                     .thread(weiboConfig.getThreadNum())
                     .setScheduler(new FileCacheExScheduler(weiboConfig.getUrlCacheDir()))
                     .setDownloader(new HttpClientExDownloader());
