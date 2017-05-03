@@ -16,7 +16,7 @@ import java.util.Map;
 public class WeiboCommentProcessor implements WeiboProcessor{
     public void process(Page page) {
         if (Integer.valueOf(page.getJson().jsonPath("$.ok").get())==0){
-            System.out.println("No Comment:"+ page);
+            System.out.println(JSON.toJSON(page.getRequest()));
             return;
         }
         Map extras=page.getRequest().getExtras();
