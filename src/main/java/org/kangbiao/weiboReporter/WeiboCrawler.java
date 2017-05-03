@@ -24,7 +24,6 @@ public class WeiboCrawler implements PageProcessor {
 
     private Site site;
     private WeiboProcessorContext weiboProcessorContext;
-    private static Spider weiboSpider;
 
     public void process(Page page) {
         if (page.getStatusCode()!=200) {
@@ -55,7 +54,7 @@ public class WeiboCrawler implements PageProcessor {
             pageExtrasMap.put("pageType",PageType.CONTAINER_ID);
             pageExtrasMap.put("uid",weiboConfig.getUid());
             request.setExtras(pageExtrasMap);
-            weiboSpider=Spider.create(weiboCrawler)
+            Spider weiboSpider=Spider.create(weiboCrawler)
                     .addRequest(request)
                     .addPipeline(new JsonFileExPipeline(weiboConfig.getDataDir()))
                     .thread(weiboConfig.getThreadNum())

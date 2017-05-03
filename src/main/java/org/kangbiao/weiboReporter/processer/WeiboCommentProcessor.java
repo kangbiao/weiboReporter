@@ -17,6 +17,7 @@ public class WeiboCommentProcessor implements WeiboProcessor{
     public void process(Page page) {
         if (Integer.valueOf(page.getJson().jsonPath("$.ok").get())==0){
             System.out.println(JSON.toJSON(page.getRequest()));
+            page.setSkip(true);
             return;
         }
         Map extras=page.getRequest().getExtras();

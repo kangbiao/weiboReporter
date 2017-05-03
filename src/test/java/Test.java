@@ -1,4 +1,5 @@
 import com.alibaba.fastjson.JSON;
+import org.apache.commons.codec.digest.DigestUtils;
 import us.codecraft.webmagic.Request;
 
 import java.io.*;
@@ -14,7 +15,8 @@ import java.util.List;
 public class Test {
 
     public static void main(String[] args){
-        getRightUrls();
+//        getRightUrls();
+        System.out.print(DigestUtils.md5Hex("http://m.weibo.cn/api/comments/show?id=4013576387989249&page=1"));
     }
 
 
