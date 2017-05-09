@@ -36,7 +36,7 @@ public class WeiboCommentProcessor implements WeiboProcessor{
             }
         }
         try {
-            List<String> uids = page.getJson().jsonPath(".data[*].user.id").all();
+            List<String> uids = page.getJson().jsonPath("$.data[*].user.id").all();
             for (String uid : uids) {
                 String url = "http://m.weibo.cn/api/container/getIndex?containerid=230283%s_-_INFO";
                 Map<String, Object> pageExtrasMap = new HashMap<String, Object>();

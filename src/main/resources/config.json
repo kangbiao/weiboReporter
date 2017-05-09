@@ -1,8 +1,8 @@
 {
   "site":{
     "domain":"m.weibo.com",
-    "retryTimes":5,
-    "sleepTime":5000,
+    "retryTimes":4,
+    "sleepTime":6000,
     "timeOut":10000,
     "headers":{
       "Host":"m.weibo.cn",
@@ -12,7 +12,7 @@
     "acceptStatCode":[200,403,414]
   },
   "uid":2241191261,
-  "threadNum":2,
+  "threadNum":1,
   "urlCacheDir":"C:\\Users\\I337077\\Desktop\\cache",
   "dataDir":"C:\\Users\\I337077\\Desktop\\data"
 }

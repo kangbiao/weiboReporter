@@ -1,12 +1,15 @@
 import com.alibaba.fastjson.JSON;
-import org.apache.commons.codec.digest.DigestUtils;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.io.FileUtils;
 import us.codecraft.webmagic.Request;
+import us.codecraft.webmagic.selector.Json;
 
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by bradykang on 4/18/2017.
@@ -16,9 +19,36 @@ public class Test {
 
     public static void main(String[] args){
 //        getRightUrls();
-        System.out.print(DigestUtils.md5Hex("http://m.weibo.cn/api/comments/show?id=4013576387989249&page=1"));
+        countUserFile("C:\\Users\\I337077\\Desktop\\data4000-3000\\m.weibo.com");
+//        System.out.print(DigestUtils.md5Hex("http://m.weibo.cn/api/comments/show?id=4013576387989249&page=1"));
     }
 
+
+    private static int countUserFile(String path) {
+        File file=new File(path);
+        File[] files=file.listFiles();
+        int i=0;
+        for (File f:files){
+            if (f.isFile()){
+                String content= null;
+                try {
+                    content = FileUtils.readFileToString(f,"UTF-8");
+                    System.out.println(content);
+                    content= (String) JSON.parseObject(content, Map.class).get("response");
+                    if (content.contains("msg")) {
+                        Json json = new Json(content);
+                        System.out.println(json.jsonPath("$.msg").get());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (content.contains("USER_PROFILE")){
+                    i++;
+                }
+            }
+        }
+        return i;
+    }
 
 
 

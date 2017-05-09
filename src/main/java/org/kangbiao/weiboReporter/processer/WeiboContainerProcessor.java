@@ -39,5 +39,6 @@ public class WeiboContainerProcessor implements WeiboProcessor{
                 page.addTargetRequest(request);
             }
         }
+        page.setSkip(true);
     }
 }

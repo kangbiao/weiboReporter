@@ -24,14 +24,15 @@ public class WeiboFeedProcessor implements WeiboProcessor{
             Map<String, Object> pageExtrasMap = new HashMap<String, Object>();
             pageExtrasMap.put("pageType", PageType.WEIBO_FEED);
             pageExtrasMap.put("calPage",false);
-            for (int i = total / 10 + 1-4000,j=0; j<=1000;j++, i--) {
-//                total / 10 + 1
+            for (int i = total / 10 + 1-5001,j=2; j<=100;j++, i--) {
                 Request request = new Request(String.format(url, uid, containerId, i));
                 request.setExtras(pageExtrasMap);
                 page.addTargetRequest(request);
             }
+            page.setSkip(true);
+            return;
         }
-        List<String> ids=page.getJson().jsonPath(".cards[*].mblog.id").all();
+        List<String> ids=page.getJson().jsonPath("$.cards[*].mblog.id").all();
         for (String id:ids){
             String url = "http://m.weibo.cn/api/comments/show?id=%s&page=%s";
             Map<String, Object> pageExtrasMap = new HashMap<String, Object>();
