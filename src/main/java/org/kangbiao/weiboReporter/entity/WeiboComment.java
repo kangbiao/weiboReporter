@@ -1,7 +1,5 @@
 package org.kangbiao.weiboReporter.entity;
 
-import javax.swing.text.html.parser.DTD;
-
 /**
  * Created by bradykang on 5/15/2017.
  * 评论
