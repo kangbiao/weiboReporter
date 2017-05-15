@@ -1,4 +1,4 @@
-package org.kangbiao.weiboReporter.uploader;
+package org.kangbiao.weiboReporter.formatter;
 
 import com.alibaba.fastjson.JSON;
 import org.kangbiao.weiboReporter.entity.WeiboFeed;
@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
 
 /**
  * Created by bradykang on 5/15/2017.
- * 微博动态上传
+ * 微博动态解析格式化
  */
-public class FeedUploader {
+public class FeedFormatter {
 
     public void parse(String response){
         Json json=new Json(response);
@@ -60,8 +60,8 @@ public class FeedUploader {
     }
 
     public static void main(String[] args) throws IOException {
-        FeedUploader feedUploader=new FeedUploader();
-        String result=feedUploader.getTopic("这周去温江写作业了吗");
+        FeedFormatter feedFormatter =new FeedFormatter();
+        String result= feedFormatter.getTopic("这周去温江写作业了吗");
         System.out.println(result);
     }
 }

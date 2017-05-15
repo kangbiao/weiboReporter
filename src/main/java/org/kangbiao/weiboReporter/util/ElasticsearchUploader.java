@@ -1,29 +1,13 @@
 package org.kangbiao.weiboReporter.util;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.io.FileUtils;
-import org.elasticsearch.action.bulk.*;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.common.unit.ByteSizeUnit;
-import org.elasticsearch.common.unit.ByteSizeValue;
-import org.elasticsearch.common.unit.TimeValue;
-import org.elasticsearch.common.xcontent.XContentType;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
-import org.kangbiao.weiboReporter.entity.Document;
-import org.kangbiao.weiboReporter.uploader.FeedUploader;
+import org.kangbiao.weiboReporter.formatter.FeedFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import us.codecraft.webmagic.selector.Json;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -86,14 +70,14 @@ public class ElasticsearchUploader {
         String path="C:\\Users\\I337077\\Desktop\\data4000-3000\\m.weibo.com";
         File file=new File(path);
         File[] files=file.listFiles();
-        FeedUploader feedUploader=new FeedUploader();
+        FeedFormatter feedFormatter =new FeedFormatter();
         for (File f:files){
             if (f.isFile()){
                 String content=FileUtils.readFileToString(f,"UTF-8");
                 Map map = JSON.parseObject(content, Map.class);
                 if (map.get("url")!=null){
                     if (map.get("type").equals("WEIBO_FEED")) {
-                        feedUploader.parse(String.valueOf(map.get("response")));
+                        feedFormatter.parse(String.valueOf(map.get("response")));
                     }
                 }
             }
