@@ -7,6 +7,8 @@ import us.codecraft.webmagic.Site;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by bradykang on 4/19/2017.
@@ -18,6 +20,7 @@ public class WeiboConfig {
     private int threadNum;
     private String urlCacheDir;
     private String dataDir;
+    private Map<String,Map<String,List<String>>> category;
 
     public WeiboConfig() throws IOException {
         String  path=WeiboConfig.class.getResource("/").getPath()+"config.json";
@@ -30,6 +33,7 @@ public class WeiboConfig {
             this.setThreadNum(jsonObject.getInteger("threadNum"));
             this.setUrlCacheDir(jsonObject.getString("urlCacheDir"));
             this.setDataDir(jsonObject.getString("dataDir"));
+            this.setCategory((Map<String, Map<String, List<String>>>) jsonObject.get("category"));
         } catch (IOException e) {
             throw new IOException("配置文件读取失败");
         }
@@ -73,5 +77,13 @@ public class WeiboConfig {
 
     public void setDataDir(String dataDir) {
         this.dataDir = dataDir;
+    }
+
+    public Map<String, Map<String, List<String>>> getCategory() {
+        return category;
+    }
+
+    public void setCategory(Map<String, Map<String, List<String>>> category) {
+        this.category = category;
     }
 }

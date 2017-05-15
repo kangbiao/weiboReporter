@@ -20,7 +20,7 @@ public class WeiboFeed {
     private String source;
     private String text;
 
-    private String category;
+    private String topic;
     private String create_time;
 
     public String getAttitudes_count() {
@@ -127,19 +127,19 @@ public class WeiboFeed {
         this.text = text;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public String getCreate_time() {
         return create_time;
     }
 
     public void setCreate_time(String create_time) {
         this.create_time = create_time;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 }

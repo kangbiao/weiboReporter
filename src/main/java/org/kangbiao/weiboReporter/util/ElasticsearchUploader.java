@@ -14,6 +14,7 @@ import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.kangbiao.weiboReporter.entity.Document;
+import org.kangbiao.weiboReporter.uploader.FeedUploader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.selector.Json;
@@ -32,8 +33,7 @@ import java.util.Map;
 public class ElasticsearchUploader {
     private static Logger logger = LoggerFactory.getLogger(ElasticsearchUploader.class);
     public static void main(String[] args) throws IOException {
-//            test();
-        System.out.print("Lumia，诺基亚，Windows 10 Mobile".toLowerCase());
+            test();
 //        String template="{\"id\":\"%s\",\"count1\":%s,\"count2\":%s,\"name\":\"%s\",\"createTime\":\"2016-08-%s\"}";
 //
 //        TransportClient client = new PreBuiltTransportClient(Settings.EMPTY)
@@ -86,29 +86,14 @@ public class ElasticsearchUploader {
         String path="C:\\Users\\I337077\\Desktop\\data4000-3000\\m.weibo.com";
         File file=new File(path);
         File[] files=file.listFiles();
+        FeedUploader feedUploader=new FeedUploader();
         for (File f:files){
             if (f.isFile()){
                 String content=FileUtils.readFileToString(f,"UTF-8");
                 Map map = JSON.parseObject(content, Map.class);
                 if (map.get("url")!=null){
-                    Json json = new Json((String) map.get("response"));
                     if (map.get("type").equals("WEIBO_FEED")) {
-//                        System.out.println(json.jsonPath("$.cards[*].mblog").all());
-                    }else if (map.get("type").equals("WEIBO_COMMENT")) {
-                        List<String> sources=json.jsonPath("$.data[*].source").all();
-                        for (String source:sources){
-                            if (!(source.length()<1||source.length()>100)){
-                                System.out.println(source);
-                            }
-                        }
-
-//                        List<String> comments=json.jsonPath("$.data[*]").all();
-//                        for (int i=0;i<comments.size();i++){
-//                            String comment=comments.get(i);
-//                            String id=json.jsonPath("$.data["+i+"].id").get();
-//                            comment="{"+"\"time\":\""+json.jsonPath("$.data["+i+"].created_at").get().split(" ")[1]+"\","+comment.substring(1,comment.length());
-////                            bulkProcessor.add(new IndexRequest("bishe","WEIBO_COMMENT",id).source(comment,XContentType.JSON));
-//                        }
+                        feedUploader.parse(String.valueOf(map.get("response")));
                     }
                 }
             }
