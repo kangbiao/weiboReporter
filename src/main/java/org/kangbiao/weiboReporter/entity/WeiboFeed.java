@@ -6,28 +6,29 @@ package org.kangbiao.weiboReporter.entity;
  */
 public class WeiboFeed {
 
-    private String attitudes_count;
+    private Integer attitudes_count;
     private String bid;
-    private String comments_count;
+    private Integer comments_count;
     private String created_at;
-    private String favorited;
+    private Boolean favorited;
     private String id;
     private String idstr;
-    private String isLongText;
-    private String mblogtype;
+    private Boolean isLongText;
+    private Integer mblogtype;
     private String mid;
-    private String reposts_count;
+    private Integer reposts_count;
     private String source;
     private String text;
 
     private String topic;
     private String create_time;
 
-    public String getAttitudes_count() {
+
+    public Integer getAttitudes_count() {
         return attitudes_count;
     }
 
-    public void setAttitudes_count(String attitudes_count) {
+    public void setAttitudes_count(Integer attitudes_count) {
         this.attitudes_count = attitudes_count;
     }
 
@@ -39,11 +40,11 @@ public class WeiboFeed {
         this.bid = bid;
     }
 
-    public String getComments_count() {
+    public Integer getComments_count() {
         return comments_count;
     }
 
-    public void setComments_count(String comments_count) {
+    public void setComments_count(Integer comments_count) {
         this.comments_count = comments_count;
     }
 
@@ -55,11 +56,11 @@ public class WeiboFeed {
         this.created_at = created_at;
     }
 
-    public String getFavorited() {
+    public Boolean getFavorited() {
         return favorited;
     }
 
-    public void setFavorited(String favorited) {
+    public void setFavorited(Boolean favorited) {
         this.favorited = favorited;
     }
 
@@ -79,19 +80,19 @@ public class WeiboFeed {
         this.idstr = idstr;
     }
 
-    public String getIsLongText() {
+    public Boolean getLongText() {
         return isLongText;
     }
 
-    public void setIsLongText(String isLongText) {
-        this.isLongText = isLongText;
+    public void setLongText(Boolean longText) {
+        isLongText = longText;
     }
 
-    public String getMblogtype() {
+    public Integer getMblogtype() {
         return mblogtype;
     }
 
-    public void setMblogtype(String mblogtype) {
+    public void setMblogtype(Integer mblogtype) {
         this.mblogtype = mblogtype;
     }
 
@@ -103,11 +104,11 @@ public class WeiboFeed {
         this.mid = mid;
     }
 
-    public String getReposts_count() {
+    public Integer getReposts_count() {
         return reposts_count;
     }
 
-    public void setReposts_count(String reposts_count) {
+    public void setReposts_count(Integer reposts_count) {
         this.reposts_count = reposts_count;
     }
 
@@ -127,19 +128,19 @@ public class WeiboFeed {
         this.text = text;
     }
 
-    public String getCreate_time() {
-        return create_time;
-    }
-
-    public void setCreate_time(String create_time) {
-        this.create_time = create_time;
-    }
-
     public String getTopic() {
         return topic;
     }
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public String getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(String create_time) {
+        this.create_time = create_time;
     }
 }
