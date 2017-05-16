@@ -1,9 +1,7 @@
 package org.kangbiao.weiboReporter.entity;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by bradykang on 5/15/2017.

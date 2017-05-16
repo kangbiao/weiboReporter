@@ -31,7 +31,7 @@ public class FeedFormatter {
 
     private String getDateTime(String rawTime){
         String reg="^\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}$";
-        boolean result=Pattern.compile(reg).matcher(rawTime).matches();
+        boolean result= Pattern.compile(reg).matcher(rawTime).matches();
         return result?rawTime:"2017-"+rawTime;
     }
 

@@ -17,6 +17,10 @@ public class WeiboComment {
     private String time;
     private String formatedSource;
 
+    public String test(){
+        return user.getId();
+    }
+
     public String getCreated_at() {
         return created_at;
     }
