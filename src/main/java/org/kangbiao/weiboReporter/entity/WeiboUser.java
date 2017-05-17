@@ -11,10 +11,12 @@ public class WeiboUser {
     private String location;
     private String school;
     private String email;
-    private String phone;
     private String level;
     private String joinTime;
     private String intro;
+    private String company;
+    private String credit;
+    private String blog;
 
     public String getNickname() {
         return nickname;
@@ -64,14 +66,6 @@ public class WeiboUser {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getLevel() {
         return level;
     }
@@ -94,5 +88,29 @@ public class WeiboUser {
 
     public void setIntro(String intro) {
         this.intro = intro;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getCredit() {
+        return credit;
+    }
+
+    public void setCredit(String credit) {
+        this.credit = credit;
+    }
+
+    public String getBlog() {
+        return blog;
+    }
+
+    public void setBlog(String blog) {
+        this.blog = blog;
     }
 }
