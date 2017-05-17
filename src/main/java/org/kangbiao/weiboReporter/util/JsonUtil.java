@@ -17,4 +17,8 @@ public class JsonUtil {
         return gson.fromJson(json,type);
     }
 
+    public static String toJson(Object o){
+        return gson.toJson(o);
+    }
+
 }

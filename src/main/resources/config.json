@@ -16,6 +16,12 @@
   "urlCacheDir":"C:\\Users\\I337077\\Desktop\\cache",
   "dataDir":"C:\\Users\\I337077\\Desktop\\data",
 
+  "savedDataDirs":[
+    "C:\\Users\\I337077\\Desktop\\data",
+    "C:\\Users\\I337077\\Desktop\\data",
+    "C:\\Users\\I337077\\Desktop\\data"
+  ],
+
   "category":{
     "phone":{
       "苹果":["iphone","ipad","mac"],

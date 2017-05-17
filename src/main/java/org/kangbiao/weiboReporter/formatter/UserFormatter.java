@@ -4,8 +4,6 @@ import org.kangbiao.weiboReporter.entity.WeiboUser;
 import org.kangbiao.weiboReporter.util.JsonUtil;
 import us.codecraft.webmagic.selector.Json;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

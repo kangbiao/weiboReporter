@@ -5,7 +5,6 @@ import org.kangbiao.weiboReporter.entity.WeiboFeed;
 import org.kangbiao.weiboReporter.entity.Category;
 import us.codecraft.webmagic.selector.Json;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,11 +40,5 @@ public class FeedFormatter extends BaseFormatter{
             }
         }
         return "其他";
-    }
-
-    public static void main(String[] args) throws IOException {
-        FeedFormatter feedFormatter =new FeedFormatter();
-        String result= feedFormatter.getTopic("这周去温江写作业了吗");
-        System.out.println(result);
     }
 }

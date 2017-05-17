@@ -21,6 +21,7 @@ public class WeiboConfig {
     private String urlCacheDir;
     private String dataDir;
     private Map<String,Map<String,List<String>>> category;
+    private List<String> dataPaths;
 
     public WeiboConfig() throws IOException {
         String  path=WeiboConfig.class.getResource("/").getPath()+"config.json";
@@ -33,6 +34,7 @@ public class WeiboConfig {
             this.setThreadNum(jsonObject.getInteger("threadNum"));
             this.setUrlCacheDir(jsonObject.getString("urlCacheDir"));
             this.setDataDir(jsonObject.getString("dataDir"));
+            this.setDataPaths((List<String>) jsonObject.get("dataPaths"));
             this.setCategory((Map<String, Map<String, List<String>>>) jsonObject.get("category"));
         } catch (IOException e) {
             throw new IOException("配置文件读取失败");
@@ -85,5 +87,13 @@ public class WeiboConfig {
 
     public void setCategory(Map<String, Map<String, List<String>>> category) {
         this.category = category;
+    }
+
+    public List<String> getDataPaths() {
+        return dataPaths;
+    }
+
+    public void setDataPaths(List<String> dataPaths) {
+        this.dataPaths = dataPaths;
     }
 }

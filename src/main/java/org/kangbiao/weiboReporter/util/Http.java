@@ -13,17 +13,17 @@ import java.net.URLConnection;
  *
  */
 public class Http {
-    private static Logger logger = LoggerFactory.getLogger(ElasticsearchUploader.class);
+    private static Logger logger = LoggerFactory.getLogger(Http.class);
     public static String sendGet(String url) {
         String result ="";
         BufferedReader in = null;
         try {
             URL realUrl = new URL(url);
             URLConnection connection = realUrl.openConnection();
-            connection.setRequestProperty("accept", "*/*");
-            connection.setRequestProperty("connection", "Keep-Alive");
-            connection.setRequestProperty("user-agent",
-                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            connection.setRequestProperty("Accept", "*/*");
+            connection.setRequestProperty("Connection", "Keep-Alive");
+            connection.setRequestProperty("User-Agent",
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.96 Safari/537.36");
             connection.setConnectTimeout(5000);
             connection.connect();
             in = new BufferedReader(new InputStreamReader(
