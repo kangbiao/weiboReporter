@@ -14,8 +14,7 @@ import java.util.List;
  */
 public class CommentFormatter extends BaseFormatter{
 
-    public List<WeiboComment> parse(String response){
-        Json json=new Json(response);
+    public List<WeiboComment> parse(Json json){
         List<WeiboComment> weiboComments=new ArrayList<WeiboComment>();
         List<String> comments =json.jsonPath("$.data[*]").all();
         for (String comment:comments){

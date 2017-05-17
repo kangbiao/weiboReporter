@@ -5,6 +5,7 @@ package org.kangbiao.weiboReporter.entity;
  * 用户
  */
 public class WeiboUser {
+    private String id;
     private String nickname;
     private String tag;
     private String sex;
@@ -112,5 +113,13 @@ public class WeiboUser {
 
     public void setBlog(String blog) {
         this.blog = blog;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

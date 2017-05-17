@@ -1,5 +1,8 @@
 package org.kangbiao.weiboReporter.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -10,6 +13,7 @@ import java.net.URLConnection;
  *
  */
 public class Http {
+    private static Logger logger = LoggerFactory.getLogger(ElasticsearchUploader.class);
     public static String sendGet(String url) {
         String result ="";
         BufferedReader in = null;
@@ -29,8 +33,7 @@ public class Http {
                 result += line;
             }
         } catch (Exception e) {
-            System.out.println("发送GET请求出现异常！" + e);
-            e.printStackTrace();
+            logger.error("发送GET请求出现异常！url=" + url+" reason="+e.getMessage());
         }
         finally {
             try {

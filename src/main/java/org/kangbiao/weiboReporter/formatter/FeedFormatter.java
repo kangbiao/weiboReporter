@@ -6,6 +6,7 @@ import org.kangbiao.weiboReporter.entity.Category;
 import us.codecraft.webmagic.selector.Json;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,16 +15,18 @@ import java.util.List;
  */
 public class FeedFormatter extends BaseFormatter{
 
-    public void parse(String response){
-        Json json=new Json(response);
+    public List<WeiboFeed> parse(Json json){
         List<String> mblogs=json.jsonPath("$.cards[*].mblog").all();
+        List<WeiboFeed> weiboFeeds=new ArrayList<WeiboFeed>();
         for (String mblog:mblogs){
             WeiboFeed weiboFeed=JSON.parseObject(mblog, WeiboFeed.class);
             weiboFeed.setText(this.parseText(weiboFeed.getText()));
             weiboFeed.setCreated_at(super.getDateTime(weiboFeed.getCreated_at()));
             weiboFeed.setTopic(this.getTopic(weiboFeed.getText()));
             weiboFeed.setCreate_time(super.getTime(weiboFeed.getCreated_at()));
+            weiboFeeds.add(weiboFeed);
         }
+        return weiboFeeds;
     }
 
     private String parseText(String rawText){

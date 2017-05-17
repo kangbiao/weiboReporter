@@ -18,6 +18,10 @@ public class UserFormatter extends BaseFormatter{
     public WeiboUser parse(Json json){
         List<String> type11cards = json.jsonPath("$.cards[*]").all();
         WeiboUser weiboUser = new WeiboUser();
+        String containerid=json.jsonPath("$.cardlistInfo.containerid").get();
+        if (containerid!=null&&!containerid.equals("")){
+            weiboUser.setId(containerid.substring(2,5));
+        }
         for (String type11card : type11cards) {
             Map<String, Object> type11cardMap = JsonUtil.fromJson(type11card, Map.class);
             if (type11cardMap.get("card_group") == null) {
