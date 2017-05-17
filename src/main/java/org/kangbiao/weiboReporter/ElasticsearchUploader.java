@@ -47,7 +47,7 @@ public class ElasticsearchUploader {
     private FeedFormatter feedFormatter =new FeedFormatter();
     private CommentFormatter commentFormatter=new CommentFormatter();
     private UserFormatter userFormatter=new UserFormatter();
-    private String index="weibo";
+    private String index="weiboTest";
 
     private void init() throws UnknownHostException {
         TransportClient client = new PreBuiltTransportClient(Settings.EMPTY)
@@ -142,7 +142,7 @@ public class ElasticsearchUploader {
             WeiboUser weiboUser=userFormatter.parse(json);
             bulkProcessor.add(new IndexRequest(
                     index,
-                    "WEIBO_COMMENT",
+                    "USER",
                     weiboUser.getId())
                     .source(JSONObject.toJSONString(weiboUser), XContentType.JSON));
         }
