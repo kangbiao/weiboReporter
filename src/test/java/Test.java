@@ -19,8 +19,7 @@ public class Test {
 
     public static void main(String[] args){
 //        getRightUrls();
-        countUserFile("C:\\Users\\I337077\\Desktop\\data4000-3000\\m.weibo.com");
-//        System.out.print(DigestUtils.md5Hex("http://m.weibo.cn/api/comments/show?id=4013576387989249&page=1"));
+        System.out.print("2302833608314067_-_INFO".substring(6,"2302833608314067_-_INFO".length()-7));
     }
 
 

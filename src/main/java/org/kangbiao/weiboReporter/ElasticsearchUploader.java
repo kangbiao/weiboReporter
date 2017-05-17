@@ -47,7 +47,7 @@ public class ElasticsearchUploader {
     private FeedFormatter feedFormatter =new FeedFormatter();
     private CommentFormatter commentFormatter=new CommentFormatter();
     private UserFormatter userFormatter=new UserFormatter();
-    private String index="weiboTest";
+    private String index="bradykang";
 
     private void init() throws UnknownHostException {
         TransportClient client = new PreBuiltTransportClient(Settings.EMPTY)

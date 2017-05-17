@@ -16,7 +16,7 @@
   "urlCacheDir":"C:\\Users\\I337077\\Desktop\\cache",
   "dataDir":"C:\\Users\\I337077\\Desktop\\data",
 
-  "savedDataDirs":[
+  "dataPaths":[
     "C:\\Users\\I337077\\Desktop\\data\\m.weibo.com",
     "C:\\Users\\I337077\\Desktop\\data4000-3000\\m.weibo.com",
     "C:\\Users\\I337077\\Desktop\\data5000-4000\\m.weibo.com"

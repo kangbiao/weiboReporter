@@ -18,7 +18,7 @@ public class UserFormatter extends BaseFormatter{
         WeiboUser weiboUser = new WeiboUser();
         String containerid=json.jsonPath("$.cardlistInfo.containerid").get();
         if (containerid!=null&&!containerid.equals("")){
-            weiboUser.setId(containerid.substring(2,5));
+            weiboUser.setId(containerid.substring(6,containerid.length()-7));
         }
         for (String type11card : type11cards) {
             Map<String, Object> type11cardMap = JsonUtil.fromJson(type11card, Map.class);
