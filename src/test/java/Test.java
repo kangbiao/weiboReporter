@@ -1,6 +1,8 @@
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.io.FileUtils;
+import org.kangbiao.weiboReporter.entity.WeiboComment;
+import org.kangbiao.weiboReporter.util.JsonUtil;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.selector.Json;
 
@@ -18,8 +20,9 @@ import java.util.Map;
 public class Test {
 
     public static void main(String[] args){
-//        getRightUrls();
-        System.out.print("2302833608314067_-_INFO".substring(6,"2302833608314067_-_INFO".length()-7));
+//        String a="{\"like_counts\":\"\",\"created_at\":\"2016-06-13 01:00\",\"id\":3985710291677868,\"source\":\"iPhone 5s\",\"text\":\"你这是犯罪啊\",\"user\":{\"mbtype\":0,\"screen_name\":\"Jupiter04\",\"profile_url\":\"http:\\/\\/m.weibo.cn\\/u\\/2817763537?uid=2817763537\",\"verified\":false,\"profile_image_url\":\"https:\\/\\/tva1.sinaimg.cn\\/crop.0.2.640.640.180\\/a7f3a8d1jw8fb6pd8hn13j20hs0hwt9h.jpg\",\"id\":2817763537,\"verified_type\":-1},\"liked\":false}";
+//        WeiboComment weiboComment= JsonUtil.fromJson(a, WeiboComment.class);
+        System.out.print("sadsa".contains(""));
     }
 
 

@@ -20,12 +20,14 @@ public class Category {
             Map<String ,List<String>> rawTopic=weiboConfig.getCategory().get("topic");
             for (String key :rawPhone.keySet()){
                 for (String eachValue:rawPhone.get(key)){
-                    phone.put(eachValue.toLowerCase(),key);
+                    if (eachValue!=null&&!eachValue.equals(""))
+                        phone.put(eachValue.toLowerCase(),key);
                 }
             }
             for (String key :rawTopic.keySet()){
                 for (String eachValue:rawTopic.get(key)){
-                    topic.put(eachValue.toLowerCase(),key);
+                    if (eachValue!=null&&!eachValue.equals(""))
+                        topic.put(eachValue.toLowerCase(),key);
                 }
             }
         } catch (IOException e) {

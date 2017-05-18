@@ -61,6 +61,8 @@ public class WeiboFeed {
     }
 
     public void setFavorited(Boolean favorited) {
+        if (favorited==null)
+            favorited=false;
         this.favorited = favorited;
     }
 
@@ -109,6 +111,8 @@ public class WeiboFeed {
     }
 
     public void setReposts_count(Integer reposts_count) {
+        if (reposts_count==null)
+            reposts_count=0;
         this.reposts_count = reposts_count;
     }
 

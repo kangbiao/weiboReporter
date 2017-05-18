@@ -42,6 +42,8 @@ public class WeiboComment {
     }
 
     public void setLike_counts(Integer like_counts) {
+        if (like_counts==null)
+            like_counts=0;
         this.like_counts = like_counts;
     }
 
@@ -50,6 +52,8 @@ public class WeiboComment {
     }
 
     public void setLiked(Boolean liked) {
+        if (liked==null)
+            liked=false;
         this.liked = liked;
     }
 
@@ -148,6 +152,8 @@ class User{
     }
 
     public void setVerified(Boolean verified) {
+        if (verified==null)
+            verified=false;
         this.verified = verified;
     }
 
