@@ -1,5 +1,6 @@
 package org.kangbiao.weiboReporter.formatter;
 
+import com.alibaba.fastjson.JSONObject;
 import org.kangbiao.weiboReporter.entity.Category;
 import org.kangbiao.weiboReporter.entity.WeiboComment;
 import org.kangbiao.weiboReporter.util.JsonUtil;
@@ -18,7 +19,7 @@ public class CommentFormatter extends BaseFormatter{
         List<WeiboComment> weiboComments=new ArrayList<WeiboComment>();
         List<String> comments =json.jsonPath("$.data[*]").all();
         for (String comment:comments){
-            WeiboComment weiboComment=JsonUtil.fromJson(comment, WeiboComment.class);
+            WeiboComment weiboComment= JSONObject.parseObject(comment, WeiboComment.class);
             weiboComment.setCreated_at(super.getDateTime(weiboComment.getCreated_at()));
             weiboComment.setTime(super.getTime(weiboComment.getCreated_at()));
             weiboComment.setFormatedSource(this.parseSource(weiboComment.getSource()));
