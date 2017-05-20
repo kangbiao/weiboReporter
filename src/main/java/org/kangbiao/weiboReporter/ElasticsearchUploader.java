@@ -23,6 +23,7 @@ import org.kangbiao.weiboReporter.entity.WeiboUser;
 import org.kangbiao.weiboReporter.formatter.CommentFormatter;
 import org.kangbiao.weiboReporter.formatter.FeedFormatter;
 import org.kangbiao.weiboReporter.formatter.UserFormatter;
+import org.kangbiao.weiboReporter.util.Http;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.selector.Json;
@@ -48,10 +49,10 @@ public class ElasticsearchUploader {
     private UserFormatter userFormatter=new UserFormatter();
 
 
-    File commentFile=new File("C:\\Users\\I337077\\Desktop\\comment.txt");
-    File userFile=new File("C:\\Users\\I337077\\Desktop\\user.txt");
-    File feedFile=new File("C:\\Users\\I337077\\Desktop\\feed.txt");
-    private String index="brady";
+    File commentFile=new File("/Users/brady/data/comment.txt");
+    File userFile=new File("/Users/brady/data/user.txt");
+    File feedFile=new File("/Users/brady/data/feed.txt");
+    private String index="weibo";
 
     private void init() throws UnknownHostException {
         TransportClient client = new PreBuiltTransportClient(Settings.EMPTY)
@@ -68,13 +69,15 @@ public class ElasticsearchUploader {
                         logger.info("bulk request numberOfActions:" + bulkRequest.numberOfActions());
                     }
                     public void afterBulk(long l, BulkRequest bulkRequest, BulkResponse bulkResponse) {
-                        logger.info("bulk response has failures: " + bulkResponse.hasFailures());
+                        if (bulkResponse.hasFailures()) {
+                            logger.error("bulk response has failures: " + bulkResponse.buildFailureMessage());
+                        }
                     }
                     public void afterBulk(long l, BulkRequest bulkRequest, Throwable throwable) {
                         logger.warn("bulk failed: " + throwable);
                     }
                 })
-                .setBulkActions(10000)
+                .setBulkActions(100)
                 .setBulkSize(new ByteSizeValue(5, ByteSizeUnit.MB))
                 .setFlushInterval(TimeValue.timeValueSeconds(5))
                 .setConcurrentRequests(1)
@@ -87,6 +90,8 @@ public class ElasticsearchUploader {
         WeiboConfig weiboConfig=new WeiboConfig();
         ElasticsearchUploader elasticsearchUploader=new ElasticsearchUploader();
         elasticsearchUploader.start(weiboConfig.getDataPaths());
+        elasticsearchUploader.bulkProcessor.flush();
+        elasticsearchUploader.bulkProcessor.close();
     }
 
     public void start(List<String> dataPaths) throws IOException {
@@ -99,10 +104,11 @@ public class ElasticsearchUploader {
     private void process(String path) throws IOException {
         File file = new File(path);
         File[] files = file.listFiles();
+        String content;
         for (File f : files) {
             if (f.isFile()) {
                 try {
-                    String content = FileUtils.readFileToString(f, "UTF-8");
+                    content = FileUtils.readFileToString(f, "UTF-8");
                     if (content == null || content.equals("") || content.equals("{}")) {
                         continue;
                     }
@@ -121,52 +127,33 @@ public class ElasticsearchUploader {
     private void send2BulkProcesser(Map map) throws IOException {
         Json json = new Json(String.valueOf(map.get("response")));
         if (Integer.valueOf(json.jsonPath("$.ok").get()) == 0) {
-            logger.error("未获取到数据 url="+map.get("url"));
-            return;
-//            json = new Json(Http.sendGet(String.valueOf(map.get("url"))));
+            json = new Json(Http.sendGet(String.valueOf(map.get("url"))));
         }
-//        if (Integer.valueOf(json.jsonPath("$.ok").get()) == 0) {
-//            logger.error("重试失败。 url="+map.get("url"));
-//        }
+        if (Integer.valueOf(json.jsonPath("$.ok").get()) == 0) {
+            logger.error("重试失败。 url="+map.get("url"));
+            return;
+        }
         if (map.get("type").equals("WEIBO_COMMENT")){
             for (WeiboComment weiboComment:commentFormatter.parse(json)) {
-                FileUtils.writeStringToFile(
-                        commentFile,
-                        JSONObject.toJSONString(weiboComment)+"\n",
-                        "UTF-8",
-                        true
-                );
                 bulkProcessor.add(new IndexRequest(
                         index,
-                        "COMMENT",
+                        "comment",
                         weiboComment.getId())
                         .source(JSONObject.toJSONString(weiboComment), XContentType.JSON));
             }
         }else if (map.get("type").equals("WEIBO_FEED")){
             for (WeiboFeed weiboFeed:feedFormatter.parse(json)) {
-                FileUtils.writeStringToFile(
-                        feedFile,
-                        JSONObject.toJSONString(weiboFeed)+"\n",
-                        "UTF-8",
-                        true
-                );
                 bulkProcessor.add(new IndexRequest(
                         index,
-                        "FEED",
+                        "feed",
                         weiboFeed.getId())
                         .source(JSONObject.toJSONString(weiboFeed), XContentType.JSON));
             }
         }else if (map.get("type").equals("USER_PROFILE")){
             WeiboUser weiboUser=userFormatter.parse(json);
-            FileUtils.writeStringToFile(
-                    userFile,
-                    JSONObject.toJSONString(weiboUser)+"\n",
-                    "UTF-8",
-                    true
-            );
             bulkProcessor.add(new IndexRequest(
                     index,
-                    "USER",
+                    "user",
                     weiboUser.getId())
                     .source(JSONObject.toJSONString(weiboUser), XContentType.JSON));
         }

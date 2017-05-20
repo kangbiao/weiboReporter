@@ -17,9 +17,9 @@
   "dataDir":"C:\\Users\\I337077\\Desktop\\data",
 
   "dataPaths":[
-    "C:\\Users\\I337077\\Desktop\\data\\m.weibo.com",
-    "C:\\Users\\I337077\\Desktop\\data4000-3000\\m.weibo.com",
-    "C:\\Users\\I337077\\Desktop\\data5000-4000\\m.weibo.com"
+    "/Users/brady/IdeaProjects/data/5750-5000/data/m.weibo.com",
+    "/Users/brady/IdeaProjects/data/5000-4000/data/m.weibo.com",
+    "/Users/brady/IdeaProjects/data/4000-3000/data/m.weibo.com"
   ],
 
   "category":{
