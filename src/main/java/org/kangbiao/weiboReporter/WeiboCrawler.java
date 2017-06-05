@@ -28,10 +28,6 @@ public class WeiboCrawler implements PageProcessor {
     public void process(Page page) {
         if (page.getStatusCode()!=200) {
             System.out.println("-----------");
-            System.out.println("-----------");
-            System.out.println("-----------");
-            System.out.println("-----------");
-            System.out.println("status code:"+page.getStatusCode());
         }
         PageType pageType= PageType.fromObject(page.getRequest().getExtras().get("pageType"));
         weiboProcessorContext.process(pageType,page);
